@@ -1,6 +1,6 @@
 @AutoComplete.Server_HostAddress = http://localhost:5070
 
-GET {{AutoComplete.Server_HostAddress}}/weatherforecast/
+GET {{AutoComplete.Server_HostAddress}}/api/autocomplete
 Accept: application/json
 
-###
+##

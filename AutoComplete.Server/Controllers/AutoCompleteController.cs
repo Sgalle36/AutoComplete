@@ -6,11 +6,10 @@ namespace AutoComplete.Server.Controllers
     [Route("api/[controller]")]
     public class AutoCompleteController : ControllerBase
     {
-        [HttpGet]
-        public String[] Index()
+        [HttpGet(Name = "GetAutoComplete")]
+        public String[] Get()
         {
-            string[] words = System.IO.File.ReadAllLines("./Data/words.txt");
-            return words;
+            return System.IO.File.ReadAllLines("./Data/words.txt");
         }
     }
 }

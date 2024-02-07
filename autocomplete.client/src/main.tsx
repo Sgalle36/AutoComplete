@@ -4,7 +4,7 @@ import './index.css'
 import AutoComplete from './AutoComplete.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+    <React.StrictMode>
     <AutoComplete />
   </React.StrictMode>,
 )
