@@ -1,17 +1,25 @@
-import React from 'react';
+import { ChangeEvent, useState } from 'react';
 
-const words = ["apples", "bananas", "donuts", "tacos", "austronaut", "appendix"];
-const search = ((e: any) => words.filter(w => w === e.value));
+const words = ["apples", "bananas", "donuts", "tacos", "astronaut", "appendix"];
+const search = ((str: string) => words.filter(w => w.includes(str)));
 
 
 function AutoComplete() {
+    const [suggestions, setSuggestions] = useState(['']);
+
+    function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
+        setSuggestions(search(e.target.value));
+    }
+
     return (
         <>
-            <p>Hello Auto...complete!</p>
-            <input type="text" className="simple-input-field" onChange={search} />
-            <select>
-                <option value="banana">Banana</option>
-            </select>
+            <h1>Hello Auto...complete!</h1>
+            <div>
+            <input list="word-suggestions" type="text" className="simple-input-field" onChange={handleOnChange} />
+            <datalist id="word-suggestions">
+                {suggestions.map((word) => <option value={word} key={word}>{word}</option>)}
+                </datalist>
+            </div>
         </>
 
     );
