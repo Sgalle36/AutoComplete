@@ -49,6 +49,10 @@ export default defineConfig({
             '^/weatherforecast': {
                 target: 'https://localhost:7259/',
                 secure: false
+            },
+            '^/api/autocomplete': {
+                target: 'https://localhost:7259/',
+                secure: false
             }
         },
         port: 5173,

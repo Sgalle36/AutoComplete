@@ -1,28 +1,38 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
-const words = ["apples", "bananas", "donuts", "tacos", "astronaut", "appendix"];
-const search = ((str: string) => words.filter(w => w.includes(str)));
-
+const search = ((str: string, words: string[]) => words.filter(word => word.includes(str)).slice(0,10));
 
 function AutoComplete() {
     const [suggestions, setSuggestions] = useState(['']);
+    const [words, setWords] = useState(['']);
+
+    useEffect(() => {
+        getWords();
+    }, []);
 
     function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
-        setSuggestions(search(e.target.value));
+        setSuggestions(search(e.target.value, words));
     }
 
     return (
         <>
-            <h1>Hello Auto...complete!</h1>
             <div>
-            <input list="word-suggestions" type="text" className="simple-input-field" onChange={handleOnChange} />
-            <datalist id="word-suggestions">
-                {suggestions.map((word) => <option value={word} key={word}>{word}</option>)}
+                <input list="word-suggestions" type="text" className="simple-input-field" onChange={handleOnChange} />
+                <datalist id="word-suggestions">
+                    {suggestions.map((word) => <option value={word} key={word}>{word}</option>)}
                 </datalist>
             </div>
         </>
 
     );
+
+    async function getWords() {
+        const response = await fetch("api/autocomplete");
+        const data = await response.json();
+        setWords(data);
+    }
 }
+
+
 
 export default AutoComplete;
